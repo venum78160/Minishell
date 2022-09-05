@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 10:05:49 by lbally            #+#    #+#             */
-/*   Updated: 2022/09/05 13:44:36 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/09/05 17:38:47 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 typedef struct s_parse
 {
 	char			*cmd;
-	char			*arg;
+	char			**arg;
 	char			*flag;
 	int				first;
 	int				i;
@@ -144,10 +144,18 @@ void	msg_error(char *err);
 int		count_pipe_v(char *line);
 void	init_file(int fd, int i, t_parse *parse);
 void	open_file(char *str, int i, t_parse *parse);
-char 	*nextword(char *line, int *j);
+char	*nextword(char *line,int *j)
 char	*ft_strncpy(char *s, int j);
 int		redirection_v(char *line, int i, t_parse *parse);
 int		ft_flag(char *line,int i,t_parse *parse);
 t_parse	*ft_lstmove(t_parse *lst, int indice);
 void	lexer(char *line);
+char	*ft_strjoin_no_spc(const char *s1, char *s2);
+t_parse	*ft_lstnew_parse();
+char *ft_realloc2char(char **src, int size);
+int	ft_cmd_arg(char *line, int i, t_parse *tete);
+
+// for test.
+
+void	print_global();
 #endif

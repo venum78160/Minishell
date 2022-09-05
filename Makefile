@@ -19,7 +19,10 @@ SRCS	= 	srcs/minishell.c \
 			srcs/par_arg.c \
 			srcs/signal.c \
 			srcs/exit.c \
-			srcs/exec.c
+			srcs/exec.c \
+			srcs/lexer/lexer.c \
+			srcs/lexer/lexer_utils.c \
+			srcs/lexer/redirection.c 
 
 LIB		=	libft.a
 
