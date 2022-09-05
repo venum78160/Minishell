@@ -6,11 +6,11 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 15:09:48 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/09/05 17:32:06 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/09/05 23:58:28 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 char *nextword(char *line,int *j)
 {
@@ -23,6 +23,7 @@ char *nextword(char *line,int *j)
 	while(line[i] && ft_isalnum(line[i]) == 1)
 		i++;
 	*j = i;
+	printf("in nextword - %s\n", ft_strncpy(line + start, i));
 	return (ft_strncpy(line + start, i));
 }
 
@@ -45,7 +46,7 @@ char	*ft_strjoin_no_spc(const char *s1, char *s2)
 	while (s2[++j])
 		str[i++] = s2[j];
 	str[i] = '\0';
-	free (s1);
+	free ((void *)s1);
 	return (str);
 }
 
@@ -73,10 +74,11 @@ void	print_global()
 	t_parse	*tete;
 
 	i = 0;
+	printf("debut de print global\n");
 	tete = g_global.parse;
 	printf("cmd = %s, flag = %s\n", tete->cmd, tete->flag);
 	printf("infile = %i, outfile = %i\n", tete->infile, tete->outfile);
-	while (tete->arg[i])
+	while (tete->arg && tete->arg[i])
 	{
 		printf("argument n %i = %s\n", i, tete->arg[i]);
 		i++;

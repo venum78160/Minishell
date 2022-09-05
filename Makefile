@@ -1,5 +1,5 @@
 CC		=	gcc
-CFLAGS	=	-Wall -Wextra -g 
+CFLAGS	=	-Wall -Wextra -g
 HEADER	=	include
 SRCS	= 	srcs/minishell.c \
 			srcs/arg.c \
@@ -45,7 +45,7 @@ $(NAME):	$(OBJS)
 			$(CC) -o $@ $^ $(CFLAGS) $(LIB) -I$(HEADER) $(READ) $(NAME)
 
 clean:
-			$(RM) $(LIB) srcs/*.o libft/*.o
+			$(RM) $(LIB) srcs/*.o libft/*.o srcs/lexer/*.o
 
 fclean:		clean
 			$(RM) $(NAME)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbally <lbally@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 12:28:26 by lbally            #+#    #+#             */
-/*   Updated: 2022/08/12 15:10:25 by lbally           ###   ########.fr       */
+/*   Updated: 2022/09/06 00:13:26 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void				ft_bzero(void *dest, size_t len);
 void				ft_lstadd_front(t_list **alst, t_list *new);
 void				*ft_calloc(size_t count, size_t size);
 void				*ft_memccpy(void *dest, const void *src, int c, size_t n);
-void				*ft_memcpy(void *dest, const void *src, size_t n);
+void				*ft_memcpy(void *dst, const void *src, size_t n);
 void				*ft_memchr(const void *s, int c, size_t n);
 void				*ft_memmove(void *dest, const void *src, size_t len);
 void				*ft_memset(void *dest, int val, size_t len);

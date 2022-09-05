@@ -6,12 +6,14 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 10:05:49 by lbally            #+#    #+#             */
-/*   Updated: 2022/09/05 17:38:47 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/09/05 19:32:22 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+/* ************************* INCLUDES ************************* */
+
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -26,6 +28,7 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 
+/* ************************ STRUCTURES ************************ */
 typedef struct s_parse
 {
 	char			*cmd;
@@ -138,13 +141,17 @@ t_list	*add2(t_list *alst, char *str);
 t_exp	*add3(t_exp *atc, char *str);
 t_exp	*add4(t_exp *atc, char *str);
 
-// lexer part.
+/* *************************** INIT ************************** */
+
+void	init_global(void);
+
+/* *************************** LEXER ************************** */
 
 void	msg_error(char *err);
 int		count_pipe_v(char *line);
 void	init_file(int fd, int i, t_parse *parse);
 void	open_file(char *str, int i, t_parse *parse);
-char	*nextword(char *line,int *j)
+char	*nextword(char *line,int *j);
 char	*ft_strncpy(char *s, int j);
 int		redirection_v(char *line, int i, t_parse *parse);
 int		ft_flag(char *line,int i,t_parse *parse);
@@ -152,10 +159,12 @@ t_parse	*ft_lstmove(t_parse *lst, int indice);
 void	lexer(char *line);
 char	*ft_strjoin_no_spc(const char *s1, char *s2);
 t_parse	*ft_lstnew_parse();
-char *ft_realloc2char(char **src, int size);
-int	ft_cmd_arg(char *line, int i, t_parse *tete);
+char	**ft_realloc2char(char **src, int size);
+int		ft_cmd_arg(char *line, int i, t_parse *tete);
 
-// for test.
+/* *************************** TEST ************************** */
 
 void	print_global();
+
+
 #endif

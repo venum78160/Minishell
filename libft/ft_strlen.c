@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbally <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 12:36:45 by lbally            #+#    #+#             */
-/*   Updated: 2022/07/22 12:36:47 by lbally           ###   ########.fr       */
+/*   Updated: 2022/09/05 23:58:58 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t		ft_strlen(const char *str)
 	size_t i;
 
 	i = 0;
-	while (str[i])
+	while (str && str[i])
 		i++;
 	return (i);
 }

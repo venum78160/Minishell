@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msebbane <msebbane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 12:24:42 by lbally            #+#    #+#             */
-/*   Updated: 2022/09/02 12:09:18 by msebbane         ###   ########.fr       */
+/*   Updated: 2022/09/05 23:53:16 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,10 @@ void	free_tab(char **tab)
 	int	i;
 
 	i = 0;
-	while (tab[i])
+	printf("dans free_tab\n");
+	while (tab && tab[i] != '\0')
 	{
 		free(tab[i]);
+		i++;
 	}
 }

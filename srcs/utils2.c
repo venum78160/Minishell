@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msebbane <msebbane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 12:24:37 by lbally            #+#    #+#             */
-/*   Updated: 2022/09/02 12:09:06 by msebbane         ###   ########.fr       */
+/*   Updated: 2022/09/05 23:59:18 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,12 @@ int	len_envp(char **envp)
 	int	i;
 
 	i = 0;
-	while (envp[i])
+	// if (!envp)
+	// 	return (0);
+	while (envp && envp[i] != '\0')
+	{
 		i++;
+	}
 	return (i);
 }
 

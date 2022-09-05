@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 12:26:07 by lbally            #+#    #+#             */
-/*   Updated: 2022/09/05 17:34:18 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/09/05 23:59:39 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,10 @@ int	main(int ac, char **av, char **envp)
 	char	*line;
 	t_exp	*atc;
 	t_list	*alst;
-	t_parse	*parse;
 
 	alst = NULL;
+	(void) ac;
+	(void) av;
 	insert_env(envp, &alst);
 	insert_exp(envp, &atc);
 	signals();
@@ -58,8 +59,10 @@ int	main(int ac, char **av, char **envp)
 		line = rl_gets();
 		line_prompt(line, av);
 		g_global.parse = malloc(sizeof(t_parse));
-		init_parse(g_global.parse);
-		parse = parser_arg(parse, line);
+		// init_global;
+		lexer(line);
+		printf("end lexer\n");
+		exit(0);
 		print_global();
 		// if (parse->cmd)
 		// {
@@ -69,6 +72,7 @@ int	main(int ac, char **av, char **envp)
 		// }
 		// print_arg(parse);
 		// free(parse);
+		exit(0);
 	}
 }
 

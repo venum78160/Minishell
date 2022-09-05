@@ -6,17 +6,17 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 15:11:15 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/09/05 15:15:08 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/09/05 18:55:52 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 void	init_file(int fd, int i, t_parse *parse)
 {
-	if (i = 2)
+	if (i == 2)
 	{
-		if (parse->infile == NULL)
+		if (parse->infile == 0)
 			parse->infile = fd;
 		else
 		{
@@ -26,7 +26,7 @@ void	init_file(int fd, int i, t_parse *parse)
 	}
 	else
 	{
-		if (parse->outfile == NULL)
+		if (parse->outfile == 1)
 			parse->outfile = fd;
 		else
 		{
@@ -73,20 +73,24 @@ int	redirection_v(char *line, int i, t_parse *parse)
 	j = i;
 	if (line[i] == '>' && line[i + 1] == '>')
 	{
+		printf("redirection append\n");
 		// append
 		open_file(nextword(line + i, &j), 0, parse);
 	}
 	else if (line[i] == '>' && line[i + 1] != '>')
 	{
+		printf("redirection trunc\n");
 		// trunc
 		open_file(nextword(line + i, &j), 1, parse);
 	}
 	else if (line[i] == '<' && line[i + 1] == '<')
 	{
+		printf("redirection heredoc\n");
 		// heredoc
 	}
 	else if (line[i] == '<' && line[i + 1] != '<')
 	{
+		printf("redirection infile\n");
 		// infile
 		open_file(nextword(line + i, &j), 2, parse);
 	}
