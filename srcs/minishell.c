@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 12:26:07 by lbally            #+#    #+#             */
-/*   Updated: 2022/09/02 18:20:50 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/09/05 13:44:19 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,9 @@ void	line_prompt(char *line, char **argv)
 	argv = ft_split(line, ' ');
 }
 
-void	init_parse(t_parse *parse)
+void	init_global(void)
 {
-	parse->cmd = NULL;
-	parse->arg = NULL;
-	parse->flag = NULL;
-	parse->pipe = 0;
-	parse->next = NULL;
+	g_global.parse = malloc(sizeof(t_parse));
 }
 
 int	main(int ac, char **av, char **envp)

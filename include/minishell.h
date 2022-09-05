@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 10:05:49 by lbally            #+#    #+#             */
-/*   Updated: 2022/09/02 16:01:07 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/09/05 13:44:36 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ typedef struct s_parse
 	char			*cmd;
 	char			*arg;
 	char			*flag;
-	int				pipe;
+	int				first;
+	int				i;
 	int				infile;
 	int				outfile;
 	struct s_parse	*next;
@@ -96,7 +97,7 @@ void	free_tab(char **tab);
 void	insert_env(char **envp, t_list **alst);
 void	insert_exp(char **envp, t_exp **atc);
 void	print_list(t_list *alst);
-void	init_parse(t_parse *parse);
+void	init_global(void);
 int		back_slash(char *str);
 void	add_back(t_parse **parse, t_parse *new);
 void	get_path(void);
@@ -137,4 +138,16 @@ t_list	*add2(t_list *alst, char *str);
 t_exp	*add3(t_exp *atc, char *str);
 t_exp	*add4(t_exp *atc, char *str);
 
+// lexer part.
+
+void	msg_error(char *err);
+int		count_pipe_v(char *line);
+void	init_file(int fd, int i, t_parse *parse);
+void	open_file(char *str, int i, t_parse *parse);
+char 	*nextword(char *line, int *j);
+char	*ft_strncpy(char *s, int j);
+int		redirection_v(char *line, int i, t_parse *parse);
+int		ft_flag(char *line,int i,t_parse *parse);
+t_parse	*ft_lstmove(t_parse *lst, int indice);
+void	lexer(char *line);
 #endif
