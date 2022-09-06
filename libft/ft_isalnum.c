@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 12:29:33 by lbally            #+#    #+#             */
-/*   Updated: 2022/09/06 18:28:12 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/09/06 23:09:03 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,5 @@ int		ft_isalnum(int c)
 		if (!(c >= '0' && c <= '9'))
 			return (0);
 	}
-	printf("isalnum c = |%c|, retour 1\n", c);
 	return (1);
 }
