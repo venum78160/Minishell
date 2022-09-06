@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 12:26:07 by lbally            #+#    #+#             */
-/*   Updated: 2022/09/05 23:59:39 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/09/06 12:51:52 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ int	main(int ac, char **av, char **envp)
 		// init_global;
 		lexer(line);
 		printf("end lexer\n");
-		exit(0);
 		print_global();
 		// if (parse->cmd)
 		// {

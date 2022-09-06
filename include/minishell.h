@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 10:05:49 by lbally            #+#    #+#             */
-/*   Updated: 2022/09/05 19:32:22 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/09/06 22:55:53 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 /* ************************ STRUCTURES ************************ */
 typedef struct s_parse
 {
+	struct s_parse	*next;
 	char			*cmd;
 	char			**arg;
 	char			*flag;
@@ -38,7 +39,7 @@ typedef struct s_parse
 	int				i;
 	int				infile;
 	int				outfile;
-	struct s_parse	*next;
+	int				fd_kill;
 }				t_parse;
 
 typedef struct s_env
@@ -161,6 +162,8 @@ char	*ft_strjoin_no_spc(const char *s1, char *s2);
 t_parse	*ft_lstnew_parse();
 char	**ft_realloc2char(char **src, int size);
 int		ft_cmd_arg(char *line, int i, t_parse *tete);
+void	heredoc(char *stop, t_parse *parse);
+void	ft_lstadd_back_parse(t_parse **alst, t_parse *new);
 
 /* *************************** TEST ************************** */
 

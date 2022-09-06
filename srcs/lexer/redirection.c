@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 15:11:15 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/09/05 18:55:52 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/09/06 21:35:23 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	open_file(char *str, int i, t_parse *parse)
 	int	file;
 	file = 0;
 	
+	printf("in open file - str=%s\n", str);
 	file = open(str, O_DIRECTORY, O_RDONLY);
 	if (file != -1)
 	{
@@ -69,30 +70,40 @@ void	open_file(char *str, int i, t_parse *parse)
 int	redirection_v(char *line, int i, t_parse *parse)
 {
 	int j;
+	char *nextw;
 	
 	j = i;
 	if (line[i] == '>' && line[i + 1] == '>')
 	{
+		j += 2;
+		nextw = nextword(line + i + 2, &j);
 		printf("redirection append\n");
 		// append
-		open_file(nextword(line + i, &j), 0, parse);
+		open_file(nextw, 0, parse);
 	}
 	else if (line[i] == '>' && line[i + 1] != '>')
 	{
+		j++;
+		nextw = nextword(line + i + 1, &j);
 		printf("redirection trunc\n");
 		// trunc
-		open_file(nextword(line + i, &j), 1, parse);
+		open_file(nextw, 1, parse);
 	}
 	else if (line[i] == '<' && line[i + 1] == '<')
 	{
+		j += 2;
+		nextw = nextword(line + i + 2, &j);
+		heredoc(nextw, parse);
 		printf("redirection heredoc\n");
 		// heredoc
 	}
 	else if (line[i] == '<' && line[i + 1] != '<')
 	{
+		j++;
+		nextw = nextword(line + i + 1, &j);
 		printf("redirection infile\n");
 		// infile
-		open_file(nextword(line + i, &j), 2, parse);
+		open_file(nextw, 2, parse);
 	}
 	return (j);
 }

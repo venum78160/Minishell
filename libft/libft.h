@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 12:28:26 by lbally            #+#    #+#             */
-/*   Updated: 2022/09/06 00:13:26 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/09/06 22:55:34 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@
 
 typedef struct s_list
 {
+	struct s_list	*next;
 	void			*content;
 	char			*key;
-	struct s_list	*next;
 }					t_list;
 
 t_list				*ft_lstnew(void *content, char *key);
@@ -55,7 +55,7 @@ int					ft_isdigit(int c);
 int					ft_isalpha(int c);
 int					ft_isprint(int c);
 int					ft_memcmp(const void *str1, const void *str2, size_t n);
-int					ft_strncmp(const char *s1, const char *s2, size_t n);
+int					ft_strncmp(const char	*first, const char	*second, size_t length);
 int					ft_toupper(int c);
 int					ft_tolower(int c);
 int					ft_lstsize(t_list *lst);

@@ -22,6 +22,7 @@ SRCS	= 	srcs/minishell.c \
 			srcs/exec.c \
 			srcs/lexer/lexer.c \
 			srcs/lexer/lexer_utils.c \
+			srcs/lexer/here_doc.c \
 			srcs/lexer/redirection.c 
 
 LIB		=	libft.a
