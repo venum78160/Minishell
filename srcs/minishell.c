@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/22 12:26:07 by lbally            #+#    #+#             */
-/*   Updated: 2022/09/06 12:51:52 by vl-hotel         ###   ########.fr       */
+/*   Created: 2022/09/14 13:03:27 by msebbane          #+#    #+#             */
+/*   Updated: 2022/10/10 17:46:04 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ struct s_global	g_global;
 char	*rl_gets(void)
 {
 	static char	*line_read;
+	char		*res;
 
 	if (line_read)
 	{
@@ -25,21 +26,30 @@ char	*rl_gets(void)
 	}
 	line_read = readline ("minishell>> ");
 	if (line_read && *line_read)
-		add_history (line_read);
+	{
+		res = ft_strtrim(line_read, " \t\v\f\r");
+		if (ft_strlen(res) > 0)
+			add_history(res);
+		free(res);
+	}
 	return (line_read);
 }
 
-void	line_prompt(char *line, char **argv)
+char	*line_prompt(char *line, char **argv, int argc)
 {
+	(void)argc;
+	(void)argv;
 	if (!line)
 		signal_exit();
-	line = ft_strtrim(line, " ");
-	argv = ft_split(line, ' ');
+	return (line);
 }
 
 void	init_global(void)
 {
-	g_global.parse = malloc(sizeof(t_parse));
+	g_global.parse = NULL;
+	g_global.indice = malloc(sizeof(int) * 1);
+	g_global.indice[0] = 0;
+	g_global.here = 0;
 }
 
 int	main(int ac, char **av, char **envp)
@@ -49,42 +59,22 @@ int	main(int ac, char **av, char **envp)
 	t_list	*alst;
 
 	alst = NULL;
-	(void) ac;
-	(void) av;
+	atc = NULL;
+	g_global.old_stdin = dup(STDIN_FILENO);
+	g_global.old_stdout = dup(STDOUT_FILENO);
 	insert_env(envp, &alst);
 	insert_exp(envp, &atc);
-	signals();
+	g_global.atc = atc;
 	while (1)
 	{
+		init_signals();
 		line = rl_gets();
-		line_prompt(line, av);
-		g_global.parse = malloc(sizeof(t_parse));
-		// init_global;
+		line = line_prompt(line, av, ac);
+		init_global();
 		lexer(line);
-		printf("end lexer\n");
-		print_global();
-		// if (parse->cmd)
-		// {
-		// 	if (!ft_strcmp(parse->cmd, "exit"))
-		// 		ft_exit(parse->arg);
-		// 	my_exec(parse, envp, alst, atc);
-		// }
-		// print_arg(parse);
-		// free(parse);
-		exit(0);
+		remplacev();
+		brain(alst, atc);
+		wronglastcmd(g_global.parse, alst);
+		free_all();
 	}
 }
-
-/*
-A FIX :
--simple quote et double quote + avec echo (a faire)
-	bash-3.2$ echo 'PATH'
-	PATH
-	bash-3.2$ echo '$PATH'
-	$PATH
-	bash-3.2$ echo "$PATH"
-	/Users/msebbane/.brew/bin:/Users/msebbane/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki
-- $?
-- bash-3.2$ cat + ctrl \ doit afficher = ^\Quit: 3
-- Mettre un int pour reperer tous les $ status (127, 0, 1)
-*/

@@ -6,53 +6,11 @@
 /*   By: lbally <lbally@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 12:23:38 by lbally            #+#    #+#             */
-/*   Updated: 2022/08/17 17:42:25 by lbally           ###   ########.fr       */
+/*   Updated: 2022/10/10 13:52:13 by lbally           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
-
-void	update_env(t_list *alst, char *path)
-{
-	t_list	*list;
-	char	*content;
-	char	*new_content;
-
-	list = alst;
-	while (list)
-	{
-		if (!ft_strcmp(list->key, "PWD"))
-		{
-			content = ft_strcpy(list->content, content);
-			new_content = path;
-			free(list->content);
-			list->content = new_content;
-		}
-		if (!ft_strcmp(list->key, "OLDPWD"))
-			list->content = content;
-		list = list->next;
-	}
-}
-
-char	**putenv_in_tab(t_list *alst)
-{
-	t_list	*list;
-	char	**tab;
-	int		i;
-
-	i = 0;
-	list = alst;
-	tab = malloc(sizeof(char *) * len_list(alst) + 1);
-	while (list)
-	{
-		tab[i] = ft_strjoin(list->key, "=");
-		tab[i] = ft_strjoin(tab[i], list->content);
-		i++;
-		list = list->next;
-	}
-	tab[i] = NULL;
-	return (tab);
-}
+#include "../../include/minishell.h"
 
 void	insert_env(char **envp, t_list **alst)
 {
@@ -68,23 +26,74 @@ void	insert_env(char **envp, t_list **alst)
 		ft_lstadd_back(alst, new);
 		free(tab);
 	}
+	if (envp[0] == NULL)
+	{
+		new = ft_lstnew(ft_strdup(getcwd(NULL, 0)), "PWD=");
+		ft_lstadd_back(alst, new);
+	}
+}
+
+t_list	*add2_2(t_list *tmp, char **prt)
+{
+	t_list	*new;
+
+	new = malloc(sizeof(*tmp));
+	while (tmp->next != NULL)
+			tmp = tmp->next;
+	tmp->next = new;
+	new->key = prt[0];
+	new->content = prt[1];
+	new->next = NULL;
+	return (tmp);
 }
 
 t_list	*add2(t_list *alst, char *str)
 {
 	t_list	*tmp;
-	t_list	*new;
 	char	**prt;
+	t_list	*baba;
+	int		g;
 
-	new = malloc(sizeof(*tmp));
+	g = 0;
+	baba = alst;
 	tmp = alst;
 	prt = (char **)malloc(sizeof(char *) * 3);
-	prt = ft_split(str, '=');
+	prt[0] = ft_prt(str);
+	prt[1] = ft_prt2(str);
+	prt[2] = NULL;
+	while (baba)
+	{
+		if (!ft_strcmp(baba->key, prt[0]))
+			g++;
+		baba = baba->next;
+	}
+	add2_1(tmp, prt, g);
+	return (alst);
+}
+
+t_list	*add5_2(t_list *tmp, char **prt)
+{
+	int		i;
+	t_list	*new;
+
+	i = 3;
+	new = malloc(sizeof(*tmp));
 	while (tmp->next != NULL)
 		tmp = tmp->next;
 	tmp->next = new;
 	new->key = prt[0];
 	new->content = prt[1];
 	new->next = NULL;
-	return (alst);
+	return (tmp);
+}
+
+t_list	*add5_3(t_list *tmp, char **prt)
+{
+	int		i;
+
+	i = 3;
+	while (ft_strcmp(tmp->key, prt[0]))
+		tmp = tmp->next;
+	tmp->content = prt[1];
+	return (tmp);
 }

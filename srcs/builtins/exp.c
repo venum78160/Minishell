@@ -6,11 +6,11 @@
 /*   By: lbally <lbally@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 15:29:52 by lbally            #+#    #+#             */
-/*   Updated: 2022/08/18 09:27:30 by lbally           ###   ########.fr       */
+/*   Updated: 2022/10/09 21:02:11 by lbally           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 t_exp	*explast(t_exp *lst)
 {
@@ -61,66 +61,34 @@ void	insert_exp(char **envp, t_exp **atc)
 		ft_exp(atc, new);
 		free(tab);
 	}
+	if (envp[0] == NULL)
+	{
+		new = expnew(ft_strdup(getcwd(NULL, 0)), "PWD=");
+		ft_exp(atc, new);
+	}
 }
 
 t_exp	*add(t_exp *atc, char *str)
 {
 	t_exp	*tmp;
-	t_exp	*new;
+	t_exp	*baba;
 	char	**prt;
+	int		g;
 
-	new = malloc(sizeof(*tmp));
+	g = 0;
 	tmp = atc;
+	baba = atc;
+	prt = NULL;
 	prt = (char **)malloc(sizeof(char *) * 3);
-	prt = ft_split(str, '=');
-	while (tmp->next != NULL)
-		tmp = tmp->next;
-	tmp->next = new;
-	new->name = prt[0];
-	new->mean = prt[1];
-	new->next = NULL;
-	return (atc);
-}
-
-t_exp	*add3(t_exp *atc, char *str)
-{
-	t_exp	*tmp;
-	t_exp	*new;
-
-	new = malloc(sizeof(*tmp));
-	tmp = atc;
-	while (tmp->next != NULL)
-		tmp = tmp->next;
-	tmp->next = new;
-	new->name = str;
-	new->mean = "(null)";
-	new->next = NULL;
-	return (atc);
-}
-
-t_exp	*add4(t_exp *atc, char *str)
-{
-	t_exp	*tmp;
-	t_exp	*new;
-	char	**prt;
-	int		i;
-
-	i = 3;
-	new = malloc(sizeof(*tmp));
-	tmp = atc;
-	prt = ft_split(str, '=');
-	while (tmp->next != NULL)
-		tmp = tmp->next;
-	tmp->next = new;
-	new->name = prt[0];
-	new->mean = ft_concatenate(prt[1], "=");
-	new->mean = ft_concatenate(new->mean, prt[2]);
-	while (prt[i])
+	prt[0] = ft_prt(str);
+	prt[1] = ft_prt2(str);
+	prt[2] = NULL;
+	while (baba)
 	{
-		new->mean = ft_concatenate(new->mean, "=");
-		new->mean = ft_concatenate(new->mean, prt[i]);
-		i++;
+		if (!ft_strcmp(baba->name, prt[0]))
+			g++;
+		baba = baba->next;
 	}
-	new->next = NULL;
+	tmp = add_2(tmp, prt, g);
 	return (atc);
 }

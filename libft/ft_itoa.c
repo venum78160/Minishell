@@ -3,64 +3,59 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbally <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: msebbane <msebbane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/22 12:30:32 by lbally            #+#    #+#             */
-/*   Updated: 2022/07/22 12:30:34 by lbally           ###   ########.fr       */
+/*   Created: 2021/10/19 14:44:16 by msebbane          #+#    #+#             */
+/*   Updated: 2022/09/29 18:19:16 by msebbane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	int			ft_itoa_size(int n)
+static int	ft_len_nb(long n)
 {
-	int				size;
-	int				neg;
+	int	i;
 
-	size = 0;
-	neg = 0;
-	if (n < 0 && n > -2147483648)
-	{
-		neg = 1;
-		size++;
-		n = -n;
-	}
-	else if (n == 0)
-		return (1);
-	else if (n == -2147483648)
-		return (11);
-	while (n >= 1)
-	{
-		n /= 10;
-		size++;
-	}
-	return (size);
-}
-
-char				*ft_itoa(int n)
-{
-	char			*str;
-	int				i;
-	int				size;
-	int				neg;
-	unsigned int	tmp;
-
-	size = ft_itoa_size(n);
-	neg = (n < 0 ? 1 : 0);
 	i = 1;
-	if (!((str = (char *)malloc(sizeof(char) * size + 1))))
-		return (NULL);
-	tmp = (n < 0 ? -n : n);
-	if (tmp == 0)
-		str[tmp] = '0';
-	while (tmp >= 1)
+	if (n < 0)
+		i++;
+	while ((n / 10) != 0)
 	{
-		str[size - i] = (tmp % 10) + '0';
-		tmp /= 10;
+		n = n / 10;
 		i++;
 	}
-	if (neg)
-		*str = '-';
-	str[size] = '\0';
+	return (i);
+}
+
+/** 
+ * Alloue (avec malloc(3)) et retourne une chaine de
+ * caractères représentant l’integer reçu en argument.
+ * Les nombres négatifs doivent être gérés.
+ **/
+char	*ft_itoa(int n)
+{
+	char	*str;
+	long	nb;
+	int		len;
+
+	nb = n;
+	len = ft_len_nb(nb);
+	str = (char *) malloc(sizeof(char) * len + 1);
+	if (!str)
+		return (NULL);
+	if (nb == 0)
+		str[0] = '0';
+	if (nb < 0)
+	{
+		nb = -nb;
+		str[0] = '-';
+	}
+	str[len--] = '\0';
+	while (nb > 0)
+	{
+		str[len] = nb % 10 + '0';
+		nb = nb / 10;
+		len--;
+	}
 	return (str);
 }
